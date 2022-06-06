@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Reverse engineer IR-remote control - Part 1 (Analyze the IR signals)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Basti">
+
+    <!-- Le styles -->
+    <link rel="stylesheet" href="/theme/css/bootstrap.dark.css" type="text/css" />
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+      .tag-1 {
+        font-size: 13pt;
+      }
+      .tag-2 {
+        font-size: 10pt;
+      }
+      .tag-2 {
+        font-size: 8pt;
+      }
+      .tag-4 {
+        font-size: 6pt;
+     }
+    </style>
+    <link href="/theme/css/bootstrap-responsive.dark.css" rel="stylesheet">
+        <link href="/theme/css/font-awesome.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/theme/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/theme/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/theme/images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/theme/images/apple-touch-icon-114x114.png">
+
+    <link href="/" type="application/atom+xml" rel="alternate" title="BuZZ-T's Blog ATOM Feed" />
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/index.html">BuZZ-T's Blog </a>
+          <div class="nav-collapse">
+            <ul class="nav">
+                <li><a href="/pages/about.html">About</a></li>
+                <li><a href="/pages/datenschutzerklarung.html">Datenschutzerklärung</a></li>
+                <li><a href="/pages/impressum.html">Impressum</a></li>
+                          <li class="divider-vertical"></li>
+                  <li class="active">
+                    <a href="/category/blog.html">
+						<i class="icon-folder-open icon-large"></i>Blog
+					</a>
+                  </li>
+
+                          <ul class="nav pull-right">
+                                <li><a href="/archives.html"><i class="icon-th-list"></i>Archives</a></li>
+                          </ul>
+
+            </ul>
+            <!--<p class="navbar-text pull-right">Logged in as <a href="#">username</a></p>-->
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="span9" id="content">
+<section id="content">
+        <article>
+                <header>
+                        <h1>
+                                <a href=""
+                                        rel="bookmark"
+                                        title="Permalink to Reverse engineer IR-remote control - Part 1 (Analyze the IR signals)">
+                                        Reverse engineer IR-remote control - Part 1 (Analyze the IR signals)
+                                </a>
+                        </h1>
+                </header>
+                <div class="entry-content">
+                <div class="well">
+<footer class="post-info">
+<span class="label">Date</span>
+<abbr class="published" title="2022-06-06T00:00:00+02:00">
+        <i class="icon-calendar"></i>Mo 06 Juni 2022
+</abbr>
+<span class="label">By</span>
+<a href="/author/basti.html"><i class="icon-user"></i>Basti</a>
+<span class="label">Category</span>
+<a href="/category/blog.html"><i class="icon-folder-open"></i>Blog</a>.
+
+
+<span class="label">Tags</span>
+	<a href="/tag/reverse-engineering.html"><i class="icon-tag"></i>reverse engineering</a>
+	<a href="/tag/home-automation.html"><i class="icon-tag"></i>home automation</a>
+</footer><!-- /.post-info -->                </div>
+                <div class="section" id="goal-of-the-whole-project">
+<h2>Goal of the whole project</h2>
+<p>I got ceiling fan which is controlled by an IR-remote control, and I want to be able to control it
+using my home automation system based on <a class="reference external" href="https://www.openhab.org/">OpenHAB</a>.</p>
+<img alt="Picture of the remote control" src="images/ir_remote_control/IR_Remote_Control.jpg" style="width: 400px;" />
+<p>So my basic idea is to use an external IR-led connected to an controller, that is controllable over MQTT.</p>
+<p>From previous projects I got an ESP32 Devkit left, which I will use as controller.</p>
+<p>But the first post will just be about &quot;Analyzing the IR Signal&quot;</p>
+</div>
+<div class="section" id="hardware-used">
+<h2>Hardware used</h2>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>LogicAnalyzer</dt>
+<dd><ul class="first last">
+<li>I'm using a <a class="reference external" href="https://www.tech-tools.com/DV3500-logic-analyzer.htm">DV3500</a> which i got from my company for a previous project.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>IR-Remote Control</dt>
+<dd><ul class="first last">
+<li>The IR-Control which was delivered with the ceiling fan.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting Started</h2>
+<ol class="arabic simple">
+<li>I disassembled the IR remote control and connected the LogicAnalyzer to the IR-LED</li>
+</ol>
+<img alt="Picture of disassembled remote control with logic analyzer connected" src="images/ir_remote_control/LogicAnalyzer_Connected_to_IR.jpg" style="width: 400px;" />
+<ol class="arabic simple" start="2">
+<li>Setup a small project in the LogicAnalyzer software to record the power signal of the IR-LED</li>
+</ol>
+</div>
+<div class="section" id="looking-at-the-powersignal">
+<h2>Looking at the powersignal</h2>
+<p>I enabled capturing in the LogicAnalyzer and pressed a key on the IR.</p>
+<img alt="Picture from LogicAnalyzer software" src="images/ir_remote_control/Signal_IRLED.png" style="width: 800px;" />
+<p>Zooming in a little bit more.</p>
+<img alt="Picture from LogicAnalyzer software" src="images/ir_remote_control/Signal_IRLED_ZoomIn.png" style="width: 800px;" />
+<p>Looking at the capture of the IR-LED power signal, it seams that the IR-LED is triggered with series of pulses.
+A longer series and a shorter series.</p>
+</div>
+<div class="section" id="capturing-all-signals-from-remote-control">
+<h2>Capturing all Signals from Remote Control</h2>
+<p>I renabled capturing in the LogicAnalyzer and pressed a few other buttons.</p>
+<p>Looking at those capturings it showed the same, longer and shorter series of pulses. But just arranged in another order.
+But for every button there are exactly 12 series.</p>
+<p>It's remarkable that every button press starts with two longer series of pulses.</p>
+<p>At this point I will name the longer series of pulses: &quot;long pulse&quot; and the shorter series &quot;short pulse&quot;</p>
+<p>I capture the power signal for all buttons on the IR remote control and created a table of the pulse combinations.</p>
+<blockquote>
+<p>x = Long pulse</p>
+<p>0 = Short Pulse</p>
+</blockquote>
+</div>
+<div class="section" id="table-of-capture-signal">
+<h2>Table of capture signal</h2>
+<table border="1" class="docutils">
+<caption>Signals</caption>
+<colgroup>
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Key</th>
+<th class="head">1</th>
+<th class="head">2</th>
+<th class="head">3</th>
+<th class="head">4</th>
+<th class="head">5</th>
+<th class="head">6</th>
+<th class="head">7</th>
+<th class="head">8</th>
+<th class="head">9</th>
+<th class="head">10</th>
+<th class="head">11</th>
+<th class="head">12</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>Light ON</td>
+<td>x</td>
+<td>x</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>x</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+</tr>
+<tr><td>Light OFF</td>
+<td>x</td>
+<td>x</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>x</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+</tr>
+<tr><td>FAN OFF</td>
+<td>x</td>
+<td>x</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>x</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+</tr>
+<tr><td>FAN LVL1</td>
+<td>x</td>
+<td>x</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>x</td>
+</tr>
+<tr><td>FAN LVL2</td>
+<td>x</td>
+<td>x</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>x</td>
+<td>o</td>
+<td>o</td>
+</tr>
+<tr><td>FAN LVL3</td>
+<td>x</td>
+<td>x</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>x</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>o</td>
+<td>x</td>
+<td>x</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="a-closer-look-to-pulse-sequences">
+<h2>A closer look to pulse sequences</h2>
+<div class="section" id="short-pulse">
+<h3>Short pulse</h3>
+<p>Looking at the pulses</p>
+<img alt="Picture from LogicAnalyzer software" src="images/ir_remote_control/Signal_IRLED_ShortPulseDetails.png" style="width: 800px;" />
+<p>Looking at the break after the pulses</p>
+<img alt="Picture from LogicAnalyzer software" src="images/ir_remote_control/Signal_IRLED_After_ShortPulseDetails.png" style="width: 800px;" />
+<p>The short pulse consists of:</p>
+<blockquote>
+<ul class="simple">
+<li>31 transistions</li>
+<li>~ 13.5 us (microseconds) in high state</li>
+<li>~ 12.87 us (microseconds) in low state</li>
+<li>a break of ~1,37 ms (milliseconds)</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="long-pulse">
+<h3>Long pulse</h3>
+<p>Looking at the pulses</p>
+<img alt="Picture from LogicAnalyzer software" src="images/ir_remote_control/Signal_IRLED_LongPulseDetails.png" style="width: 800px;" />
+<p>Looking at the break after the pulses</p>
+<img alt="Picture from LogicAnalyzer software" src="images/ir_remote_control/Signal_IRLED_After_LongPulseDetails.png" style="width: 800px;" />
+<p>The long pulse consists of:</p>
+<blockquote>
+<ul class="simple">
+<li>95 transistions</li>
+<li>~ 13.5 us (microseconds) in high state</li>
+<li>~ 12.87 us (microseconds) in low state</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="conclusion">
+<h3>Conclusion</h3>
+<p>We got now everything we need to rebuild the signals of the IR remote control.</p>
+<ul class="simple">
+<li>We know how the different pulses look like</li>
+<li>We know which pulse type (long pulse / short pulse) we need to trigger for each of the
+Buttons of the IR remote control.</li>
+</ul>
+<p>I also think the actual high state is a little shorter then the period showed by the LogicAnalyzer
+because an 100uF capcitors is connected in series to IR led. (See picture at Getting Started)</p>
+<p>In next blog post, will we see how to generate the signals we have reverse engineered from a controler.</p>
+</div>
+</div>
+
+                </div><!-- /.entry-content -->
+        </article>
+</section>
+        </div><!--/span-->
+
+                <div class="span3 well sidebar-nav" id="sidebar">
+<ul class="nav nav-list">
+<li class="nav-header"><h4><i class="icon-home icon-large"></i> social</h4></li>
+<li><a href="/" rel="alternate"><i class="icon-bookmark icon-large"></i>atom feed</a></li>
+    <li><a href="https://mastodon.social/@seho"><i class="icon-Mastodon-sign icon-large"></i>Mastodon</a></li>
+    <li><a href="https://github.com/seho85"><i class="icon-Github-sign icon-large"></i>Github</a></li>
+
+<li class="nav-header"><h4><i class="icon-folder-close icon-large"></i>Categories</h4></li>
+<li>
+<a href="/category/blog.html">
+    <i class="icon-folder-open icon-large"></i>Blog
+</a>
+</li>
+
+<li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
+<li class="tag-[<pelican.contents.Article object at 0x7f778d18bdc0>, <pelican.contents.Article object at 0x7f778da60580>]">
+    <a href="/tag/reverse-engineering.html">
+        <i class="icon-tag icon-large"></i>reverse engineering
+    </a>
+</li>
+<li class="tag-[<pelican.contents.Article object at 0x7f778d18bdc0>, <pelican.contents.Article object at 0x7f778da60580>]">
+    <a href="/tag/home-automation.html">
+        <i class="icon-tag icon-large"></i>home automation
+    </a>
+</li>
+<li class="tag-[<pelican.contents.Article object at 0x7f778d1a8550>]">
+    <a href="/tag/awesome_wm.html">
+        <i class="icon-tag icon-large"></i>awesome_wm
+    </a>
+</li>
+<li class="tag-[<pelican.contents.Article object at 0x7f778d1a8550>]">
+    <a href="/tag/virtualbox.html">
+        <i class="icon-tag icon-large"></i>VirtualBox
+    </a>
+</li>
+
+
+</ul>        </div><!--/.well -->
+
+      </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <address id="about">
+                Proudly powered by <a href="http://pelican.notmyidea.org/">Pelican <i class="icon-external-link"></i></a>,
+                                which takes great advantage of <a href="http://python.org">Python <i class="icon-external-link"></i></a>.
+        </address><!-- /#about -->
+
+        <p>The theme is based on <a href="http://twitter.github.com/bootstrap/">Bootstrap from Twitter <i class="icon-external-link"></i></a>,
+                   and <a href="http://fortawesome.github.com/Font-Awesome/">Font-Awesome <i class="icon-external-link"></i></a>, thanks!</p>
+      </footer>
+
+    </div><!--/.fluid-container-->
+
+
+
+    <!-- Le javascript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/theme/js/jquery-1.7.2.min.js"></script>
+    <script src="/theme/js/bootstrap.min.js"></script>
+  </body>
+</html>
