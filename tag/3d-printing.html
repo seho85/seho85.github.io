@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>awesome WM and VirtualBox Windows</title>
+    <title>BuZZ-T's Blog - 3D Printing</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Basti">
@@ -67,7 +67,7 @@
                 <li><a href="/pages/datenschutzerklarung.html">Datenschutzerklärung</a></li>
                 <li><a href="/pages/impressum.html">Impressum</a></li>
                           <li class="divider-vertical"></li>
-                  <li class="active">
+                  <li >
                     <a href="/category/blog.html">
 						<i class="icon-folder-open icon-large"></i>Blog
 					</a>
@@ -87,23 +87,12 @@
     <div class="container-fluid">
       <div class="row">
         <div class="span9" id="content">
-<section id="content">
-        <article>
-                <header>
-                        <h1>
-                                <a href=""
-                                        rel="bookmark"
-                                        title="Permalink to awesome WM and VirtualBox Windows">
-                                        awesome WM and VirtualBox Windows
-                                </a>
-                        </h1>
-                </header>
-                <div class="entry-content">
-                <div class="well">
-<footer class="post-info">
+        <div class="article">
+                <h1><a href="/klipper_raspi_pico.html">How to use a Raspberry Pi Pico in Klipper</a></h1>
+                <div class="well small"><footer class="post-info">
 <span class="label">Date</span>
-<abbr class="published" title="2022-05-31T00:00:00+02:00">
-        <i class="icon-calendar"></i>Di 31 Mai 2022
+<abbr class="published" title="2022-06-07T00:00:00+02:00">
+        <i class="icon-calendar"></i>Di 07 Juni 2022
 </abbr>
 <span class="label">By</span>
 <a href="/author/basti.html"><i class="icon-user"></i>Basti</a>
@@ -112,19 +101,27 @@
 
 
 <span class="label">Tags</span>
-	<a href="/tag/awesome_wm.html"><i class="icon-tag"></i>awesome_wm</a>
-	<a href="/tag/virtualbox.html"><i class="icon-tag"></i>VirtualBox</a>
-</footer><!-- /.post-info -->                </div>
-                <p>Since i'm using the really awesome <a href="https://awesomewm.org/">awesome wm</a> tiling window manager, the behaviour of the <a href="https://www.virtualbox.org/">VirtualBox</a> has anoyed me.</p>
-<p>Everytime my put machine to suspend, the windows of running vms were moved to my main display.</p>
-<p>But I finally found a that the following configuration option in the awesome configuration file:</p>
-<div class="highlight"><pre><span></span><code><span class="n">client</span><span class="p">.</span><span class="n">disconnect_signal</span><span class="p">(</span><span class="s2">&quot;request::geometry&quot;</span><span class="p">,</span> <span class="n">awful</span><span class="p">.</span><span class="n">ewmh</span><span class="p">.</span><span class="n">client_geometry_requests</span><span class="p">)</span>
-</code></pre></div>
+	<a href="/tag/klipper.html"><i class="icon-tag"></i>Klipper</a>
+	<a href="/tag/3d-printing.html"><i class="icon-tag"></i>3D Printing</a>
+	<a href="/tag/raspberry-pi-pico.html"><i class="icon-tag"></i>Raspberry Pi Pico</a>
+</footer><!-- /.post-info --></div>
+                <div class="summary"><p>If you need a few more pins to connect peripherals of your choice in <a class="reference external" href="https://www.klipper3d.org/">Klipper</a>,
+you may have a look at the <a class="reference external" href="https://www.raspberrypi.com/products/raspberry-pi-pico">Raspberry Pi Pico</a></p>
+<img alt="Picture of Raspberry Pi Pico" src="images/raspberry_pi_pico/raspberry_pi_pico.jpg" style="width: 100px;" />
+<p>It's very easy to use in Klipper, because klipper provides a firmware that can flashed to Raspberry Pi Pico
+to directly integrate into klipper.</p>
+<p>You …</p>
+                        <a class="btn primary xsmall" href="/klipper_raspi_pico.html">more ...</a>
+                </div>
+        </div>
+        <hr />
 
-<p>Will prevend this behaviour. No more searching for openend vm windows - Yippiee</p>
-                </div><!-- /.entry-content -->
-        </article>
-</section>
+                <section id="content" class="body">
+                <h1>Pages</h1>
+                        <li><a href="/pages/about.html">About</a></li>
+                        <li><a href="/pages/datenschutzerklarung.html">Datenschutzerklärung</a></li>
+                        <li><a href="/pages/impressum.html">Impressum</a></li>
+                </section>
         </div><!--/span-->
 
                 <div class="span3 well sidebar-nav" id="sidebar">
