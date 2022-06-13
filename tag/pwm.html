@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>BuZZ-T's Blog - home automation</title>
+    <title>BuZZ-T's Blog - PWM</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Basti">
@@ -88,11 +88,11 @@
       <div class="row">
         <div class="span9" id="content">
         <div class="article">
-                <h1><a href="/reverse_engineer_ir_control_part1.html">Reverse engineer IR-remote control - Part 1 (Analyze the IR signals)</a></h1>
+                <h1><a href="/klipper_raspi_pwm_fan_part1.html">PWM Controlled FAN for Raspberry PI in Klipper (Part 1 - PWM General / PWM Generation on Raspberry PI)</a></h1>
                 <div class="well small"><footer class="post-info">
 <span class="label">Date</span>
-<abbr class="published" title="2022-06-06T00:00:00+02:00">
-        <i class="icon-calendar"></i>Mo 06 Juni 2022
+<abbr class="published" title="2022-06-13T00:00:00+02:00">
+        <i class="icon-calendar"></i>Mo 13 Juni 2022
 </abbr>
 <span class="label">By</span>
 <a href="/author/basti.html"><i class="icon-user"></i>Basti</a>
@@ -101,42 +101,15 @@
 
 
 <span class="label">Tags</span>
-	<a href="/tag/reverse-engineering.html"><i class="icon-tag"></i>reverse engineering</a>
-	<a href="/tag/home-automation.html"><i class="icon-tag"></i>home automation</a>
+	<a href="/tag/klipper.html"><i class="icon-tag"></i>Klipper</a>
+	<a href="/tag/3d-printing.html"><i class="icon-tag"></i>3D Printing</a>
+	<a href="/tag/raspberry-pi.html"><i class="icon-tag"></i>Raspberry Pi</a>
+	<a href="/tag/pwm.html"><i class="icon-tag"></i>PWM</a>
 </footer><!-- /.post-info --></div>
-                <div class="summary"><div class="section" id="goal-of-the-whole-project">
-<h2>Goal of the whole project</h2>
-<p>I got ceiling fan which is controlled by an IR-remote control, and I want to be able to control it
-using my home automation system based on <a class="reference external" href="https://www.openhab.org/">OpenHAB</a>.</p>
-<img alt="Picture of the remote control" src="images/ir_remote_control/IR_Remote_Control.jpg" style="width: 400px;" />
-<p>So my basic idea is to use an external IR-led connected to an controller, that is controllable …</p></div>
-                        <a class="btn primary xsmall" href="/reverse_engineer_ir_control_part1.html">more ...</a>
-                </div>
-        </div>
-        <hr />
-        <div class="article">
-                <h1><a href="/reverse_engineer_ir_control_part2.html">Reverse engineer IR-remote control - Part 2 (Control the IR-LED)</a></h1>
-                <div class="well small"><footer class="post-info">
-<span class="label">Date</span>
-<abbr class="published" title="2022-06-06T00:00:00+02:00">
-        <i class="icon-calendar"></i>Mo 06 Juni 2022
-</abbr>
-<span class="label">By</span>
-<a href="/author/basti.html"><i class="icon-user"></i>Basti</a>
-<span class="label">Category</span>
-<a href="/category/blog.html"><i class="icon-folder-open"></i>Blog</a>.
-
-
-<span class="label">Tags</span>
-	<a href="/tag/reverse-engineering.html"><i class="icon-tag"></i>reverse engineering</a>
-	<a href="/tag/home-automation.html"><i class="icon-tag"></i>home automation</a>
-</footer><!-- /.post-info --></div>
-                <div class="summary"><p>This is the second post in this series. See <a class="reference external" href="reverse_engineer_ir_control_part1">First Post</a></p>
-<p>In this post we gonna have a look how I re-generated the signals, I reverse
-engineered in the first post.</p>
-<p>I personally prefer a way of generating the signals without doing bitbanging, or
-directly trigger a GPIO output of …</p>
-                        <a class="btn primary xsmall" href="/reverse_engineer_ir_control_part2.html">more ...</a>
+                <div class="summary"><p>I'm running my 3D Printer (Anycubic Vyper) with <a class="reference external" href="https://www.klipper3d.org/">Klipper</a>. Therefore I use an older Raspberry PI 3 B+.</p>
+<p>I've never came in touch with the <a class="reference external" href="https://en.wikipedia.org/wiki/Pulse-width_modulation">PWM</a> generation on the Raspberry PI, and i liked to play arround a little bit with it.</p>
+<p>The main goal is to add a controlable …</p>
+                        <a class="btn primary xsmall" href="/klipper_raspi_pwm_fan_part1.html">more ...</a>
                 </div>
         </div>
         <hr />
