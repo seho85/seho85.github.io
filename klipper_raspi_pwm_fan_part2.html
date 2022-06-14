@@ -273,10 +273,10 @@ By using a socalled <a class="reference external" href="https://www.klipper3d.or
 <img alt="Temperature FAN in MainsailOS WebUI" src="images/raspberry_pwm_fan/Temperature_FAN_Mainsail_OS.png" style="width: 600px;" />
 <p>I just want to give a small overview of the meaning of a few of the used parameters, for the other
 parameters please refer to the <a class="reference external" href="https://www.klipper3d.org/Config_Reference.html#temperature_fan">Klipper Configuration Reference - [temperature_fan]</a></p>
-<ul class="simple">
+<ul>
 <li><dl class="first docutils">
 <dt><em>sensor_type</em> defines the temperature sensor that is used to control the fan</dt>
-<dd><ul class="first last">
+<dd><ul class="first last simple">
 <li>we use the <em>temperature_host</em> that contains the CPU temperature of the Raspberry PI</li>
 </ul>
 </dd>
@@ -284,7 +284,7 @@ parameters please refer to the <a class="reference external" href="https://www.k
 </li>
 <li><dl class="first docutils">
 <dt><em>pin</em></dt>
-<dd><ul class="first last">
+<dd><ul class="first last simple">
 <li>defines the PIN which is used to control the FAN</li>
 <li><dl class="first docutils">
 <dt>we use:</dt>
@@ -302,7 +302,7 @@ parameters please refer to the <a class="reference external" href="https://www.k
 </li>
 <li><dl class="first docutils">
 <dt><em>cycle_time</em></dt>
-<dd><ul class="first last">
+<dd><ul class="first last simple">
 <li>we use a <em>cycle</em> (period) of 0.00004 seconds (=25kHz)</li>
 </ul>
 </dd>
@@ -310,15 +310,15 @@ parameters please refer to the <a class="reference external" href="https://www.k
 </li>
 <li><dl class="first docutils">
 <dt><em>control</em></dt>
-<dd><ul class="first last">
+<dd><ul class="first last simple">
 <li>the fan is controlled by a <a class="reference external" href="https://en.wikipedia.org/wiki/PID_controller">PID Controller</a></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><dl class="first docutils">
-<dt><em>pid_K(p)(i)(d)</em></dt>
-<dd><ul class="first last">
+<li><p class="first"><em>pid_K(p)(i)(d)</em></p>
+<blockquote>
+<ul class="simple">
 <li><dl class="first docutils">
 <dt>are the parameter for the PID controller</dt>
 <dd><ul class="first last">
@@ -330,12 +330,11 @@ parameters please refer to the <a class="reference external" href="https://www.k
 </dl>
 </li>
 </ul>
-</dd>
-</dl>
+</blockquote>
 </li>
 <li><dl class="first docutils">
 <dt><em>min_speed</em></dt>
-<dd><ul class="first last">
+<dd><ul class="first last simple">
 <li>by default the <em>min_speed</em> is set to 0.3 which doesn't allow the FAN to be stopped completly.</li>
 <li>I want to able to stop the FAN completly so it set it 0.0</li>
 </ul>
@@ -352,7 +351,7 @@ parameters please refer to the <a class="reference external" href="https://www.k
 but if you power of your printer because you were not using it. Klipper will go into the
 error state because it could not reach the MCU on your printer.</p>
 <p>Klipper stops controlling the FAN, and the FAN keeps running in the state as it was, when you
-powered of the 3D Printer.</p>
+powered off the 3D Printer.</p>
 </div>
 
                 </div><!-- /.entry-content -->
@@ -376,47 +375,47 @@ powered of the 3D Printer.</p>
 </li>
 
 <li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
-<li class="tag-[<pelican.contents.Article object at 0x7f4b26159870>, <pelican.contents.Article object at 0x7f4b26a9aad0>, <pelican.contents.Article object at 0x7f4b25f66f50>]">
+<li class="tag-[<pelican.contents.Article object at 0x7f4a1af392a0>, <pelican.contents.Article object at 0x7f4a1b8d27d0>, <pelican.contents.Article object at 0x7f4a1ae4e050>]">
     <a href="/tag/klipper.html">
         <i class="icon-tag icon-large"></i>Klipper
     </a>
 </li>
-<li class="tag-[<pelican.contents.Article object at 0x7f4b26159870>, <pelican.contents.Article object at 0x7f4b26a9aad0>, <pelican.contents.Article object at 0x7f4b25f66f50>]">
+<li class="tag-[<pelican.contents.Article object at 0x7f4a1af392a0>, <pelican.contents.Article object at 0x7f4a1b8d27d0>, <pelican.contents.Article object at 0x7f4a1ae4e050>]">
     <a href="/tag/3d-printing.html">
         <i class="icon-tag icon-large"></i>3D Printing
     </a>
 </li>
-<li class="tag-[<pelican.contents.Article object at 0x7f4b26159870>, <pelican.contents.Article object at 0x7f4b26a9aad0>]">
+<li class="tag-[<pelican.contents.Article object at 0x7f4a1af392a0>, <pelican.contents.Article object at 0x7f4a1b8d27d0>]">
     <a href="/tag/raspberry-pi.html">
         <i class="icon-tag icon-large"></i>Raspberry Pi
     </a>
 </li>
-<li class="tag-[<pelican.contents.Article object at 0x7f4b26159870>, <pelican.contents.Article object at 0x7f4b26a9aad0>]">
+<li class="tag-[<pelican.contents.Article object at 0x7f4a1af392a0>, <pelican.contents.Article object at 0x7f4a1b8d27d0>]">
     <a href="/tag/pwm.html">
         <i class="icon-tag icon-large"></i>PWM
     </a>
 </li>
-<li class="tag-[<pelican.contents.Article object at 0x7f4b25f66f50>]">
+<li class="tag-[<pelican.contents.Article object at 0x7f4a1ae4e050>]">
     <a href="/tag/raspberry-pi-pico.html">
         <i class="icon-tag icon-large"></i>Raspberry Pi Pico
     </a>
 </li>
-<li class="tag-[<pelican.contents.Article object at 0x7f4b2605c610>, <pelican.contents.Article object at 0x7f4b261b5c00>]">
+<li class="tag-[<pelican.contents.Article object at 0x7f4a1b943010>, <pelican.contents.Article object at 0x7f4a1af38b80>]">
     <a href="/tag/reverse-engineering.html">
         <i class="icon-tag icon-large"></i>reverse engineering
     </a>
 </li>
-<li class="tag-[<pelican.contents.Article object at 0x7f4b2605c610>, <pelican.contents.Article object at 0x7f4b261b5c00>]">
+<li class="tag-[<pelican.contents.Article object at 0x7f4a1b943010>, <pelican.contents.Article object at 0x7f4a1af38b80>]">
     <a href="/tag/home-automation.html">
         <i class="icon-tag icon-large"></i>home automation
     </a>
 </li>
-<li class="tag-[<pelican.contents.Article object at 0x7f4b261b60e0>]">
+<li class="tag-[<pelican.contents.Article object at 0x7f4a1b08e800>]">
     <a href="/tag/awesome_wm.html">
         <i class="icon-tag icon-large"></i>awesome_wm
     </a>
 </li>
-<li class="tag-[<pelican.contents.Article object at 0x7f4b261b60e0>]">
+<li class="tag-[<pelican.contents.Article object at 0x7f4a1b08e800>]">
     <a href="/tag/virtualbox.html">
         <i class="icon-tag icon-large"></i>VirtualBox
     </a>
