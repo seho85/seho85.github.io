@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>BuZZ-T's Blog</title>
+    <title>YubiKey with KeePassXC</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Basti">
@@ -67,7 +67,7 @@
                 <li><a href="/pages/datenschutzerklarung.html">Datenschutzerklärung</a></li>
                 <li><a href="/pages/impressum.html">Impressum</a></li>
                           <li class="divider-vertical"></li>
-                  <li >
+                  <li class="active">
                     <a href="/category/blog.html">
 						<i class="icon-folder-open icon-large"></i>Blog
 					</a>
@@ -87,9 +87,116 @@
     <div class="container-fluid">
       <div class="row">
         <div class="span9" id="content">
-<ul>
-	<li><a href="category/blog.html">Blog</a></li>
+<section id="content">
+        <article>
+                <header>
+                        <h1>
+                                <a href=""
+                                        rel="bookmark"
+                                        title="Permalink to YubiKey with KeePassXC">
+                                        YubiKey with KeePassXC
+                                </a>
+                        </h1>
+                </header>
+                <div class="entry-content">
+                <div class="well">
+<footer class="post-info">
+<span class="label">Date</span>
+<abbr class="published" title="2022-07-12T00:00:00+02:00">
+        <i class="icon-calendar"></i>Di 12 Juli 2022
+</abbr>
+<span class="label">By</span>
+<a href="/author/basti.html"><i class="icon-user"></i>Basti</a>
+<span class="label">Category</span>
+<a href="/category/blog.html"><i class="icon-folder-open"></i>Blog</a>.
+
+
+<span class="label">Tags</span>
+	<a href="/tag/yubikey.html"><i class="icon-tag"></i>YubiKey</a>
+	<a href="/tag/keepassxc.html"><i class="icon-tag"></i>KeePassXC</a>
+	<a href="/tag/two-factor-authentication.html"><i class="icon-tag"></i>Two Factor Authentication</a>
+</footer><!-- /.post-info -->                </div>
+                <p>I like to put my passwords in a passwordmanager, that I can use different and strong passwords
+for different services. But I was anoyed of typing a strong and long passwords (especially on my Android phone)
+every time I want to open my password containers.</p>
+<p>I don't need them very often on my android phone, but from time to time I need them.</p>
+<p>And I still want to have my password container protected by a strong password. Here comes the &quot;Challenge Response&quot;
+feature of the YubiKey into play.</p>
+<p>I bought two YubiKey 5 NFC a few month ago, that I used for playing arround with 2FA.</p>
+<p>The first post will be about the usage with KeePassXC on the desktop.</p>
+<p>The next posts will be about usage on Android.</p>
+<div class="section" id="how-does-the-challenge-response-hmac-sha1-work">
+<h2>How does the &quot;Challenge Response&quot; (HMAC-SHA1) work?</h2>
+<ol class="arabic simple">
+<li>A secret is generated and stored on the YubiKey.<ul>
+<li>The secret <strong>can't</strong> be retrieved from the YubiKey</li>
 </ul>
+</li>
+<li>The &quot;Challenge&quot; (User Password) is send to the YubiKey using HID.</li>
+<li>The YubiKey performs a HMAC-SHA1 operation with the secret and the challenge and returns the result. (HMAC-SHA1 Hash)</li>
+</ol>
+</div>
+<div class="section" id="how-i-use-the-yubikey-with-my-password-containers">
+<h2>How I use the YubiKey with my password containers</h2>
+<div class="section" id="yubikey-setup">
+<h3>YubiKey Setup</h3>
+<p>The Yubikey has two configurable slots.</p>
+<p>I configured on slot for &quot;Challenge Response&quot; with &quot;Short Press&quot;, noted the secret and stored in at safe place, so that I
+can use it on my second YubiKey and also use for recreating another YubiKey if one of my YubiKey gets lost or defective.</p>
+</div>
+<div class="section" id="keepassxc-setup">
+<h3>KeePassXC Setup</h3>
+<p>But for the first too KeePassXC</p>
+<ol class="arabic simple">
+<li>Create a new Database and add a <em>Name</em> and a <em>Description</em></li>
+</ol>
+<img alt="Picture of KeePassXC Dialog" src="images/keepassxc/01_Generate_Database.png" style="width: 400px;" />
+<ol class="arabic simple" start="2">
+<li>Setup the Encryption Settings</li>
+</ol>
+<img alt="Picture of KeePassXC Dialog" src="images/keepassxc/02_Setup_Encryption.png" style="width: 400px;" />
+<ol class="arabic simple" start="3">
+<li>Click on &quot;Add additional Protection&quot; Button</li>
+</ol>
+<img alt="Picture of KeePassXC Dialog" src="images/keepassxc/03_Set_Password_Page.png" style="width: 400px;" />
+<ol class="arabic simple" start="4">
+<li>Click on &quot;Add Challenge-Response&quot;</li>
+</ol>
+<img alt="Picture of KeePassXC Dialog" src="images/keepassxc/04_Add_Challenge_Response.png" style="width: 400px;" />
+<ol class="arabic simple" start="5">
+<li>Select your YubiKey and Enter the Password for the Database.
+The password needn't to be to complex. Because it's just an addition two the
+&quot;Challenge Response&quot;.</li>
+</ol>
+<img alt="Picture of KeePassXC Dialog" src="images/keepassxc/05_Select_YubiKey.png" style="width: 400px;" />
+<ol class="arabic simple" start="6">
+<li>Click on &quot;Done&quot; Button.</li>
+<li>The Database will be openend in KeePassXC and you will be asked where to store the database.
+Enter the storage location and press &quot;Save&quot;</li>
+</ol>
+<img alt="Picture of KeePassXC Dialog" src="images/keepassxc/06_Save_Database.png" style="width: 400px;" />
+<ol class="arabic simple" start="8">
+<li>In KeePassXC you will be asked to &quot;Touch the YubiKey&quot;</li>
+</ol>
+<img alt="Picture of KeePassXC Dialog" src="images/keepassxc/07_Touch_Yubikey.png" style="width: 800px;" />
+<p>No we have an empty KeePassXC container where we can add passwords, and other
+secrets.</p>
+<p>Every time you make a change to your container, you need to press the Button on the YubiKey to
+confirm that you have made the change.</p>
+<p>You can find more informations about in the [FAQ](<a class="reference external" href="https://keepassxc.org/docs/#faq-yubikey-howto">https://keepassxc.org/docs/#faq-yubikey-howto</a>)
+of KeePassXC</p>
+<p>There I also a link to video that shows how to configure the YubiKey for &quot;Challenge Response HMAC-SHA1&quot;</p>
+<p>Keepass2Android have support for the same usage of the &quot;Challenge-Response&quot;, so we can use the same
+procedure on android. And if your android phone is NFC capable you can use it without need to plug the
+YubiKey into your phone.</p>
+<p>The next post will be about using the same container on Android (with Keepass2Android).</p>
+<p>Thats it for today.</p>
+</div>
+</div>
+
+                </div><!-- /.entry-content -->
+        </article>
+</section>
         </div><!--/span-->
 
                 <div class="span3 well sidebar-nav" id="sidebar">
